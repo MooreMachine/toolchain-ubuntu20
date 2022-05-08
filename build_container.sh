@@ -4,7 +4,7 @@ VERSION=$(cat README.md | grep "Version" | awk '{print $2}')
 OLD_VERSION=$VERSION
 
 CHANGED_DOCKER=$(git diff --name-only Dockerfile)
-CHANGED_README_VERSION=$(git diff README.md | grep +Version)
+CHANGED_README_VERSION=$(git diff README.md | grep +Version | awk '{print $2}')
 
 # If the Dockerfile has changed but your README.md version number hasn't been updated
 # prompt the developer to bump up the version number.
@@ -26,6 +26,16 @@ then
     VERSION=$NEW_VERSION
 fi
 
+# If the Dockerfile has changed and your README.md version number has already been updated
+# check that the new version number follows the MAJOR.MINOR.PATCH format.
+if [ ! -z ${CHANGED_DOCKER} ] && [ ! -z ${CHANGED_README_VERSION} ]
+then
+    if [[ ! $CHANGED_README_VERSION =~ [0-9]+\.[0-9]+\.[0-9] ]]
+    then
+        printf 'You already changed the version number but it is not in the form of MAJOR.MINOR.PATCH\n'
+        exit 1
+    fi
+fi
 
 docker build --tag mooremachine/ubuntu20:$VERSION .
 
