@@ -14,7 +14,7 @@ then
     read -p "New version: " NEW_VERSION
     if [ ! -z ${NEW_VERSION} ]
     then
-        if [[ ! $NEW_VERSION =~ [0-9]+\.[0-9]+\.[0-9] ]]
+        if [[ ! $NEW_VERSION =~ [0-9]+\.[0-9]+\.[0-9]+ ]]
         then
             printf 'Please provide a version number in the form of MAJOR.MINOR.PATCH\n'
             exit 1
@@ -30,7 +30,7 @@ fi
 # check that the new version number follows the MAJOR.MINOR.PATCH format.
 if [ ! -z ${CHANGED_DOCKER} ] && [ ! -z ${CHANGED_README_VERSION} ]
 then
-    if [[ ! $CHANGED_README_VERSION =~ [0-9]+\.[0-9]+\.[0-9] ]]
+    if [[ ! $CHANGED_README_VERSION =~ [0-9]+\.[0-9]+\.[0-9]+ ]]
     then
         printf 'You already changed the version number but it is not in the form of MAJOR.MINOR.PATCH\n'
         exit 1
