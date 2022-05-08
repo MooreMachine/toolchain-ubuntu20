@@ -48,6 +48,12 @@ fi
 printf 'Updating the version number in the README.md file...\n'
 sed -i '' 's/Version: '"$OLD_VERSION"'/Version: '"$VERSION"'/g' README.md
 
+if [ $? -ne 0 ]
+then
+    echo "sed failed to update the version number!"
+    exit 1
+fi
+
 CHANGED_CHANGELOG=$(git diff --name-only CHANGELOG.md)
 
 if [ -z ${CHANGED_CHANGELOG} ]
