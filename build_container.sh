@@ -47,3 +47,10 @@ fi
 
 printf 'Updating the version number in the README.md file...\n'
 sed -i '' 's/Version: '"$OLD_VERSION"'/Version: '"$VERSION"'/g' README.md
+
+CHANGED_CHANGELOG=$(git diff --name-only CHANGELOG.md)
+
+if [ -z ${CHANGED_CHANGELOG} ]
+then
+    printf '\nPlease consider updating the CHANGELOG.md file to document the changes made to the Dockerfile\n'
+fi
