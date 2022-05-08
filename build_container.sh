@@ -1,6 +1,10 @@
 #!/bin/bash
 
 VERSION=$(cat README.md | grep "Version" | awk '{print $2}')
+OLD_VERSION=$VERSION
+
+CHANGED_DOCKER=$(git diff --name-only Dockerfile)
+
 
 docker build --tag mooremachine/ubuntu20:$VERSION .
 
