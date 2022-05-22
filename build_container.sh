@@ -24,6 +24,9 @@ then
         exit 1
     fi
     VERSION=$NEW_VERSION
+
+    printf 'Updating the version number in the README.md file...\n'
+    sed -i '' 's/Version: '"$OLD_VERSION"'/Version: '"$VERSION"'/g' README.md
 fi
 
 # If the Dockerfile has changed and your README.md version number has already been updated
@@ -44,9 +47,6 @@ then
     echo "docker build failed!"
     exit 1
 fi
-
-printf 'Updating the version number in the README.md file...\n'
-sed -i '' 's/Version: '"$OLD_VERSION"'/Version: '"$VERSION"'/g' README.md
 
 if [ $? -ne 0 ]
 then
