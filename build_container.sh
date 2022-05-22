@@ -24,6 +24,9 @@ then
         exit 1
     fi
     VERSION=$NEW_VERSION
+
+    printf 'Updating the version number in the README.md file...\n'
+    sed -i '' 's/Version: '"$OLD_VERSION"'/Version: '"$VERSION"'/g' README.md
 fi
 
 # If the Dockerfile has changed and your README.md version number has already been updated
@@ -45,9 +48,6 @@ then
     exit 1
 fi
 
-printf 'Updating the version number in the README.md file...\n'
-sed -i '' 's/Version: '"$OLD_VERSION"'/Version: '"$VERSION"'/g' README.md
-
 if [ $? -ne 0 ]
 then
     echo "sed failed to update the version number!"
@@ -56,7 +56,7 @@ fi
 
 CHANGED_CHANGELOG=$(git diff --name-only CHANGELOG.md)
 
-if [ -z ${CHANGED_CHANGELOG} ]
+if [ ! -z ${CHANGED_CHANGELOG} ]
 then
     printf '\nPlease consider updating the CHANGELOG.md file to document the changes made to the Dockerfile\n'
 fi
