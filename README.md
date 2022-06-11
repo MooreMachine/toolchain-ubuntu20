@@ -10,4 +10,4 @@ Please document any official changes in the [CHANGELOG.md](CHANGELOG.md) file. W
 
 ## About
 
-Version: 0.1.0
+Version: 0.1.1
